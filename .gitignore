@@ -21,3 +21,42 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+prueba/HELP.md
+prueba/.gradle
+prueba/build/
+prueba/!gradle/wrapper/gradle-wrapper.jar
+prueba/!**/src/main/**/build/
+prueba/!**/src/test/**/build/
+
+### STS ###
+prueba/.apt_generated
+prueba/.classpath
+prueba/.factorypath
+prueba/.project
+prueba/.settings
+prueba/.springBeans
+prueba/.sts4-cache
+prueba/bin/
+prueba/!**/src/main/**/bin/
+prueba/!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+prueba/.idea
+prueba/*.iws
+prueba/*.iml
+prueba/*.ipr
+prueba/out/
+prueba/!**/src/main/**/out/
+prueba/!**/src/test/**/out/
+
+### NetBeans ###
+prueba/nbproject/private/
+prueba/nbbuild/
+prueba/dist/
+prueba/nbdist/
+prueba/.nb-gradle/
+
+### VS Code ###
+prueba/.vscode/
+
