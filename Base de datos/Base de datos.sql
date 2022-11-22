@@ -4,8 +4,8 @@ USE pruebaMicroservicios;
 
 CREATE TABLE persona (
     id INT AUTO_INCREMENT PRIMARY KEY, 
-    nombre VARCHAR(100) NOT NULL DEFAULT '',
-    genero CHAR(1) NOT NULL DEFAULT '',
+    nombre VARCHAR(100) NOT NULL,
+    genero CHAR(1) NOT NULL,
     edad TINYINT UNSIGNED NOT NULL DEFAULT 0,
     identificacion CHAR(13) NOT NULL DEFAULT '',
     direccion VARCHAR(200) NOT NULL DEFAULT '',
@@ -17,8 +17,8 @@ CREATE TABLE persona (
 
 CREATE TABLE cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    idPersona INT NOT NULL FOREIGN KEY REFERENCES persona(id),
-    constraseña TEXT NOT NULL,
+    idPersona INT NOT NULL REFERENCES persona(id),
+    constrasena TEXT NOT NULL,
     estado BIT NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -26,7 +26,7 @@ CREATE TABLE cliente (
 
 CREATE TABLE tipoCuenta (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL DEFAULT '',
+    nombre VARCHAR(100) NOT NULL,
     estado BIT NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -34,7 +34,7 @@ CREATE TABLE tipoCuenta (
 
 CREATE TABLE cuenta (
     id INT AUTO_INCREMENT PRIMARY_KEY,
-    idTipoCuenta INT NOT NULL FOREIGN KEY REFERENCES tipoCuenta(id),
+    idTipoCuenta INT NOT NULL REFERENCES tipoCuenta(id),
     saldoInicial INT NOT NULL DEFAULT 0,
     saldoActual INT NOT NULL DEFAULT 0,
     estado BIT NOT NULL DEFAULT 1,
@@ -52,8 +52,8 @@ CREATE TABLE movimientos (
 
 CREATE TABLE movimientos (
     id INT NOT NULL PRIMARY KEY,
-    idTipoMovimiento INT NOT NULL FOREIGN KEY REFERENCES tipoMovimiento(id),
-    idCuenta INT NOT NULL FOREIGN KEY REFERENCES cuenta(id), 
+    idTipoMovimiento INT NOT NULL REFERENCES tipoMovimiento(id),
+    idCuenta INT NOT NULL REFERENCES cuenta(id), 
     valor INT NOT NULL,
     saldo INT NOT NULL,
     estado BIT NOT NULL DEFAULT 1,
