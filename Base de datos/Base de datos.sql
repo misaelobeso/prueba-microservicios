@@ -1,4 +1,6 @@
-CREATE DATABASE pruebaMicroservicios IF NOT EXISTS CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+CREATE DATABASE pruebaMicroservicios CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+USE pruebaMicroservicios;
 
 CREATE TABLE persona (
     id INT AUTO_INCREMENT PRIMARY KEY, 
