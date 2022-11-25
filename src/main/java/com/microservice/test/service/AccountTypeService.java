@@ -16,6 +16,10 @@ public class AccountTypeService {
         return this.accountTypeRepository.findById(id);
     }
 
+    public Optional<AccountTypeEntity> findByName(String name) {
+        return this.accountTypeRepository.findByName(name);
+    }
+
     public Iterable<AccountTypeEntity> findAll() {
         return this.accountTypeRepository.findAll();
     }

@@ -24,7 +24,7 @@ public class TransactionEntity {
 
     private Integer currentBalance;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Type(type = GenericConstant.DEFAULT_NUMERIC_BOOLEAN_TYPE)
     private Boolean state;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -12,10 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,8 +26,8 @@ public class CustomerController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto> getById(
-            @NotNull(message = "El cliente es requerido.")
-            @Min(message = "El valor mínimo del cliente es {value}.", value = 0)
+            @NotNull(message = GenericConstant.MESSAGE_CUSTOMER_REQUIRED)
+            @Min(message = GenericConstant.MESSAGE_CUSTOMER_MIN_VALUE, value = GenericConstant.DEFAULT_INTEGER)
             @PathVariable Integer id
     ) {
         ResponseDto responseDto = new ResponseDto();
@@ -87,8 +85,8 @@ public class CustomerController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto> deleteByState (
-            @NotNull(message = "El cliente es requerido.")
-            @Min(message = "El valor mínimo del cliente es {value}.", value = 0)
+            @NotNull(message = GenericConstant.MESSAGE_CUSTOMER_REQUIRED)
+            @Min(message = GenericConstant.MESSAGE_CUSTOMER_MIN_VALUE, value = GenericConstant.DEFAULT_INTEGER)
             @PathVariable Integer id
     ) {
         ResponseDto responseDto = new ResponseDto();
@@ -112,6 +110,5 @@ public class CustomerController {
 
         return new ResponseEntity<>(responseDto, httpStatus);
     }
-
 
 }

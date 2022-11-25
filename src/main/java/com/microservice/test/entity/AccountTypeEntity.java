@@ -18,7 +18,7 @@ public class AccountTypeEntity {
 
     private String name;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Type(type = GenericConstant.DEFAULT_NUMERIC_BOOLEAN_TYPE)
     private Boolean state;
 
     @Temporal(TemporalType.TIMESTAMP)

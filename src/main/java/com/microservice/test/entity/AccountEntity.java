@@ -19,12 +19,12 @@ public class AccountEntity {
 
     private Integer idCustomer;
 
-    private Integer initialBalance;
+    private Integer initialBalance = GenericConstant.DEFAULT_INTEGER;
 
-    private Integer currentBalance;
+    private Integer currentBalance = GenericConstant.DEFAULT_INTEGER;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean state;
+    @Type(type = GenericConstant.DEFAULT_NUMERIC_BOOLEAN_TYPE)
+    private Boolean state = GenericConstant.ACTIVE_STATE;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
