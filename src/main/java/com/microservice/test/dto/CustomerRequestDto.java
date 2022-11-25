@@ -35,7 +35,7 @@ public class CustomerRequestDto {
     private String gender;
 
     @Min(message = "La edad mínima es de al menos {value} años.", value = 0)
-    @Min(message = "La edad máxima es de {value} años.", value = 150)
+    @Max(message = "La edad máxima es de {value} años.", value = 150)
     @NotNull(message = "La edad es requerida.")
     private Integer age;
 

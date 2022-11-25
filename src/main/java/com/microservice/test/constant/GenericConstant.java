@@ -18,7 +18,14 @@ public final class GenericConstant {
     public static final String MESSAGE_NOT_NULL = "No se permiten datos vacios.";
     public static final String MESSAGE_NOT_PERSON_SAVED = "No se han guardado correctamente los datos de la persona.";
     public static final String MESSAGE_NOT_CUSTOMER_SAVED = "No se han guardado correctamente los datos del cliente.";
+    public static final String MESSAGE_CUSTOMER_SAVED = "Se han guardado correctamente los datos del cliente.";
     public static final String MESSAGE_NOT_EXISTS_TRANSACTION_TYPE = "No existe el tipo de transacción.";
     public static final String MESSAGE_NOT_EXISTS_ACCOUNT = "No existe la cuenta.";
     public static final String MESSAGE_NOT_EXISTS_TRANSACTION = "No existe la transacción.";
+
+    public static final String MESSAGE_NOT_EXISTS_CUSTOMER = "No existe el cliente o no se ha dado de alta.";
+    public static final String MESSAGE_EXISTS_CUSTOMER = "Información del cliente obtenida.";
+
+    public static final String MESSAGE_CUSTOMER_ELIMINATED = "El cliente se eliminó con éxito.";
+    public static final String VALIDATE_ELEMENT_CUSTOMER = "Cliente";
 }

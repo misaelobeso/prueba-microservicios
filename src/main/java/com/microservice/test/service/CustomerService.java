@@ -1,5 +1,6 @@
 package com.microservice.test.service;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.microservice.test.constant.GenericConstant;
 import com.microservice.test.dto.CustomerRequestDto;
 import com.microservice.test.entity.CustomerEntity;
@@ -8,7 +9,6 @@ import com.microservice.test.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -77,5 +77,15 @@ public class CustomerService {
         customerEntity.setPassword(customerRequestDto.getPassword());
         customerEntity = this.save(customerEntity);
         Assert.notNull(customerEntity, GenericConstant.MESSAGE_NOT_CUSTOMER_SAVED);
+    }
+
+    @Transactional(rollbackOn = { Exception.class })
+    public void deleteByState (Integer id) {
+        Optional<CustomerEntity> customerEntity = this.customerRepository.findById(id);
+        Assert.isTrue(customerEntity.isPresent(), GenericConstant.MESSAGE_NOT_EXISTS_CUSTOMER);
+
+        customerEntity.get().setState(GenericConstant.INACTIVE_STATE);
+        CustomerEntity customerEntitySaved = this.save(customerEntity.get());
+        Assert.notNull(customerEntitySaved, GenericConstant.MESSAGE_NOT_CUSTOMER_SAVED);
     }
 }
