@@ -1,0 +1,77 @@
+CREATE DATABASE IF NOT EXISTS microserviceTest CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+USE microserviceTest;
+
+CREATE TABLE person (
+    id INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL,
+    gender CHAR(1) NOT NULL,
+    age TINYINT UNSIGNED NOT NULL DEFAULT 0,
+    identification CHAR(13) NOT NULL DEFAULT '',
+    `address` VARCHAR(200) NOT NULL DEFAULT '',
+    phone CHAR(10) UNSIGNED NOT NULL DEFAULT 0,
+    `state` BIT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE customer (
+    id INT NOT NULL AUTO_INCREMENT,
+    idPerson INT NOT NULL REFERENCES person(id),
+    `password` TEXT NOT NULL,
+    `state` BIT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idPerson) REFERENCES person(id)
+) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE accountType (
+    id INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL,
+    `state` BIT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE account (
+    id INT NOT NULL AUTO_INCREMENT,
+    idAccountType INT NOT NULL REFERENCES accountType(id),
+    idCustomer INT NOT NULL REFERENCES customer(id),
+    initialBalance INT NOT NULL DEFAULT 0,
+    currentBalance INT NOT NULL DEFAULT 0,
+    `state` BIT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idAccountType) REFERENCES accountType(id),
+    FOREIGN KEY (idCustomer) REFERENCES customer(id)
+) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE transactionType (
+    id INT NOT NULL AUTO_INCREMENT,
+    `type` VARCHAR(30) NOT NULL,
+    `state` BIT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+CREATE TABLE `transaction` (
+    id INT NOT NULL AUTO_INCREMENT,
+    idTransactionType INT NOT NULL,
+    idAccount INT NOT NULL,
+    `value` INT NOT NULL,
+    currentBalance INT NOT NULL,
+    `state` BIT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idTransactionType) REFERENCES `transaction`(id),
+    FOREIGN KEY (idAccount) REFERENCES account(id)
+) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+
+INSERT INTO accountType (name) VALUES ('Corriente'), ('Ahorro');
+INSERT INTO transactionType (type) VALUES ('Débito'), ('Crédito');

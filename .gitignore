@@ -1,62 +1,40 @@
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-prueba/HELP.md
-prueba/.gradle
-prueba/build/
-prueba/!gradle/wrapper/gradle-wrapper.jar
-prueba/!**/src/main/**/build/
-prueba/!**/src/test/**/build/
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 ### STS ###
-prueba/.apt_generated
-prueba/.classpath
-prueba/.factorypath
-prueba/.project
-prueba/.settings
-prueba/.springBeans
-prueba/.sts4-cache
-prueba/bin/
-prueba/!**/src/main/**/bin/
-prueba/!**/src/test/**/bin/
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-prueba/.idea
-prueba/*.iws
-prueba/*.iml
-prueba/*.ipr
-prueba/out/
-prueba/!**/src/main/**/out/
-prueba/!**/src/test/**/out/
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
 ### NetBeans ###
-prueba/nbproject/private/
-prueba/nbbuild/
-prueba/dist/
-prueba/nbdist/
-prueba/.nb-gradle/
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
 ### VS Code ###
-prueba/.vscode/
+.vscode/
 
+### Mysql ###
+database/persistence/
