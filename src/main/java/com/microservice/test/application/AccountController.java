@@ -2,7 +2,6 @@ package com.microservice.test.application;
 
 import com.microservice.test.constant.GenericConstant;
 import com.microservice.test.dto.AccountRequestDto;
-import com.microservice.test.dto.CustomerRequestDto;
 import com.microservice.test.dto.MessageDto;
 import com.microservice.test.dto.ResponseDto;
 import com.microservice.test.entity.AccountEntity;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface TransactionTypeRepository extends CrudRepository<TransactionTypeEntity, Integer> {
-    Optional<TransactionTypeEntity> findOneByTypeAndState(String type, Boolean state);
+    Optional<TransactionTypeEntity> findByTypeAndState(String type, Boolean state);
 }

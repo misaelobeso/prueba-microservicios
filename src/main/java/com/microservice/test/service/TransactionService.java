@@ -1,5 +1,6 @@
 package com.microservice.test.service;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.microservice.test.constant.GenericConstant;
 import com.microservice.test.dto.ReportDto;
 import com.microservice.test.dto.TransactionRequestDto;
@@ -87,14 +88,32 @@ public class TransactionService {
         transactionEntity.setCurrentBalance(currentBalance);
         transactionEntity.setIdTransactionType(transactionTypeEntity.get().getId());
 
+        return this.save(transactionEntity);
+    }
+
+    public TransactionEntity save(TransactionEntity transactionEntity) {
         return this.transactionRepository.save(transactionEntity);
     }
 
     @Transactional(rollbackOn = { Exception.class })
     public void delete(Integer id) {
         Assert.notNull(id, GenericConstant.MESSAGE_NOT_NULL);
+        Optional<TransactionEntity> transactionEntity = this.findById(id);
 
-        this.transactionRepository.deleteById(id);
+        if (transactionEntity.isPresent()) {
+            this.transactionRepository.deleteById(id);
+        }
+    }
+
+    @Transactional(rollbackOn = { Exception.class })
+    public void deleteByState(Integer id) {
+        Assert.notNull(id, GenericConstant.MESSAGE_NOT_NULL);
+        Optional<TransactionEntity> transactionEntity = this.findById(id);
+        Assert.isTrue(transactionEntity.isPresent(), GenericConstant.MESSAGE_NOT_EXISTS_TRANSACTION);
+
+        transactionEntity.get().setState(GenericConstant.INACTIVE_STATE);
+        TransactionEntity transactionSaved = this.save(transactionEntity.get());
+        Assert.notNull(transactionSaved, GenericConstant.MESSAGE_NOT_TRANSACTION_SAVED);
     }
 
     public List<ReportDto> report(Integer idCustomer, Date start, Date end) {

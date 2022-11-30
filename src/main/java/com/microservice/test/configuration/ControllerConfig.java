@@ -1,7 +1,9 @@
 package com.microservice.test.configuration;
 
+import com.microservice.test.constant.GenericConstant;
 import com.microservice.test.dto.MessageDto;
 import com.microservice.test.dto.ResponseDto;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +43,31 @@ public class ControllerConfig {
         responseDto.setErrors(errors);
 
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ResponseDto> handleAllExceptions(Exception ex, WebRequest request) {
+        ResponseDto responseDto = new ResponseDto();
+        MessageDto messageDto = new MessageDto();
+        List<MessageDto> errors = new ArrayList<>();
+        messageDto.setMessage(ex.getLocalizedMessage());
+        messageDto.setElement(GenericConstant.VALIDATE_ELEMENT_SERVER);
+        errors.add(messageDto);
+        responseDto.setErrors(errors);
+
+        return new ResponseEntity(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public final ResponseEntity<ResponseDto> handleUserNotFoundException(ObjectNotFoundException ex, WebRequest request) {
+        ResponseDto responseDto = new ResponseDto();
+        MessageDto messageDto = new MessageDto();
+        List<MessageDto> errors = new ArrayList<>();
+        messageDto.setMessage(ex.getLocalizedMessage());
+        messageDto.setElement(GenericConstant.VALIDATE_ELEMENT_NOT_FOUND);
+        errors.add(messageDto);
+        responseDto.setErrors(errors);
+
+        return new ResponseEntity(responseDto, HttpStatus.NOT_FOUND);
     }
 }

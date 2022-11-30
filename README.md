@@ -17,3 +17,8 @@ CRUD de prueba para desarrollo
 <br><strong>docker-compose down</strong>
 
 #La carpeta database/persistence guarda toda la información de mysql para que al reiniciar no se borre, si se desea remover toda la información es necesario borrar el contenido de la misma.
+#Windows
+rmdir -p database/persistence/ && mkdir database/persistence
+
+#Linux
+rm -r -f database/persistence/ && mkdir database/persistence

@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS microserviceTest CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+CREATE DATABASE IF NOT EXISTS microserviceTest DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
 USE microserviceTest;
 
@@ -14,7 +14,7 @@ CREATE TABLE person (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
 CREATE TABLE customer (
     id INT NOT NULL AUTO_INCREMENT,
@@ -25,7 +25,7 @@ CREATE TABLE customer (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (idPerson) REFERENCES person(id)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
 CREATE TABLE accountType (
     id INT NOT NULL AUTO_INCREMENT,
@@ -34,7 +34,7 @@ CREATE TABLE accountType (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
 CREATE TABLE account (
     id INT NOT NULL AUTO_INCREMENT,
@@ -48,7 +48,7 @@ CREATE TABLE account (
     PRIMARY KEY (id),
     FOREIGN KEY (idAccountType) REFERENCES accountType(id),
     FOREIGN KEY (idCustomer) REFERENCES customer(id)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
 CREATE TABLE transactionType (
     id INT NOT NULL AUTO_INCREMENT,
@@ -57,7 +57,7 @@ CREATE TABLE transactionType (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
 CREATE TABLE `transaction` (
     id INT NOT NULL AUTO_INCREMENT,
@@ -71,7 +71,9 @@ CREATE TABLE `transaction` (
     PRIMARY KEY (id),
     FOREIGN KEY (idTransactionType) REFERENCES `transaction`(id),
     FOREIGN KEY (idAccount) REFERENCES account(id)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
+
+SET NAMES 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
 INSERT INTO accountType (name) VALUES ('Corriente'), ('Ahorro');
 INSERT INTO transactionType (type) VALUES ('Débito'), ('Crédito');

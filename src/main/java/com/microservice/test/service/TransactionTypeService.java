@@ -15,12 +15,16 @@ public class TransactionTypeService {
     @Autowired
     private TransactionTypeRepository transactionTypeRepository;
 
+    public Iterable<TransactionTypeEntity> findAll() {
+        return this.transactionTypeRepository.findAll();
+    }
+
     public Optional<TransactionTypeEntity> findById(Integer id) {
         return this.transactionTypeRepository.findById(id);
     }
 
     public Optional<TransactionTypeEntity> findByTypeAndState(String type, Boolean state) {
-        return this.transactionTypeRepository.findOneByTypeAndState(type, state);
+        return this.transactionTypeRepository.findByTypeAndState(type, state);
     }
 
     @Transactional(rollbackOn = { Exception.class })

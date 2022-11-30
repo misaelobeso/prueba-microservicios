@@ -1,20 +1,36 @@
 package com.microservice.test.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.microservice.test.constant.GenericConstant;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Entity(name = GenericConstant.ENTITY_TRANSACTION)
 @Data
+@Entity(name = GenericConstant.ENTITY_TRANSACTION)
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+    private TransactionTypeEntity transactionTypeEntity;
 
     private Integer idTransactionType;
 
@@ -29,7 +45,7 @@ public class TransactionEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @Column(name="create_at")
+    @Column(name="created_at")
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
