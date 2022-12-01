@@ -82,7 +82,6 @@ public class TransactionController {
             httpStatus = HttpStatus.CONFLICT;
         }
 
-
         return new ResponseEntity<>(responseDto, httpStatus);
     }
 
@@ -94,9 +93,28 @@ public class TransactionController {
             @NotNull(message = GenericConstant.MESSAGE_REQUIRED_DATE)
             @IsDate(value = "yyyy/MM/dd", message = GenericConstant.MESSAGE_INVALID_DATE)
             @RequestParam String startDate,
+            @NotNull(message = GenericConstant.MESSAGE_REQUIRED_DATE)
+            @IsDate(value = "yyyy/MM/dd", message = GenericConstant.MESSAGE_INVALID_DATE)
             @RequestParam String endDate
     ) {
-        //return this.transactionService.report(idCustomer, startDate, endDate);
-        return new ResponseEntity<>(new ResponseDto(), HttpStatus.OK);
+        ResponseDto responseDto = new ResponseDto();
+        MessageDto messageDto = new MessageDto();
+        List<MessageDto> messageDtos = new ArrayList<>();
+        messageDto.setElement(GenericConstant.VALIDATE_ELEMENT_REPORT);
+        HttpStatus httpStatus = HttpStatus.OK;
+
+        try {
+            responseDto.setData(this.transactionService.report(idCustomer, startDate, endDate));
+            messageDto.setMessage(GenericConstant.MESSAGE_REPORT_GENERATED);
+            messageDtos.add(messageDto);
+            responseDto.setMessages(messageDtos);
+        } catch (Exception e) {
+            messageDto.setMessage(e.getMessage());
+            messageDtos.add(messageDto);
+            responseDto.setErrors(messageDtos);
+            httpStatus = HttpStatus.CONFLICT;
+        }
+
+        return new ResponseEntity<>(responseDto, httpStatus);
     }
 }

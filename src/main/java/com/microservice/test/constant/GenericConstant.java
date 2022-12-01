@@ -38,11 +38,13 @@ public final class GenericConstant {
     public static final String MESSAGE_CUSTOMER_ELIMINATED = "El cliente se eliminó con éxito.";
     public static final String MESSAGE_ACCOUNT_ELIMINATED = "La cuenta se eliminó con éxito.";
     public static final String MESSAGE_TRANSACTION_ELIMINATED = "La transacción se eliminó con éxito.";
+    public static final String MESSAGE_REPORT_GENERATED = "El report se generó con éxito.";
     public static final String VALIDATE_ELEMENT_CUSTOMER = "Cliente";
     public static final String VALIDATE_ELEMENT_ACCOUNT = "Cuenta";
     public static final String VALIDATE_ELEMENT_SERVER = "Servidor";
     public static final String VALIDATE_ELEMENT_NOT_FOUND = "Elemento no encontrado.";
     public static final String VALIDATE_ELEMENT_TRANSACTION = "Transacción";
+    public static final String VALIDATE_ELEMENT_REPORT = "Reporte";
     public static final String MESSAGE_CUSTOMER_REQUIRED = "El cliente es requerido.";
     public static final String MESSAGE_CUSTOMER_MIN_VALUE = "El valor mínimo del cliente es {value}.";
     public static final String MESSAGE_ACCOUNT_REQUIRED = "La cuenta es requerida.";

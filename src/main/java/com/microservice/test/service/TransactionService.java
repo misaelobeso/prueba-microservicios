@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import javax.transaction.Transactional;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -113,9 +116,11 @@ public class TransactionService {
         Assert.notNull(transactionSaved, GenericConstant.MESSAGE_NOT_TRANSACTION_SAVED);
     }
 
-    public List<ReportDto> report(Integer idCustomer, Date start, Date end) {
+    public List<ReportDto> report(Integer idCustomer, String start, String end)
+    throws ParseException {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(end);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        calendar.setTime(dateFormat.parse(end));
         calendar.set(Calendar.HOUR, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
@@ -136,7 +141,7 @@ public class TransactionService {
             }
 
             reportDto.setCustomerName(this.customerService.findCustomerNameById(accountEntity.getIdCustomer()));
-            transactionEntities = this.findByIdAccountAndCreatedAtBetween(accountEntity.getId(), start, calendar.getTime());
+            transactionEntities = this.findByIdAccountAndCreatedAtBetween(accountEntity.getId(), dateFormat.parse(start), calendar.getTime());
 
             for (TransactionEntity transactionEntity : transactionEntities) {
                     reportDto.setIdTransaction(transactionEntity.getId());
