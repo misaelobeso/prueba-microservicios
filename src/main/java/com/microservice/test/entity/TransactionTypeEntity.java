@@ -1,6 +1,5 @@
 package com.microservice.test.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.microservice.test.constant.GenericConstant;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

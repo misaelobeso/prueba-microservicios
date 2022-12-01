@@ -1,6 +1,5 @@
 package com.microservice.test.service;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.microservice.test.constant.GenericConstant;
 import com.microservice.test.dto.ReportDto;
 import com.microservice.test.dto.TransactionRequestDto;
@@ -13,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class TransactionService {
@@ -39,7 +36,7 @@ public class TransactionService {
         return this.transactionRepository.findById(id);
     }
 
-    public List<TransactionEntity> findByIdAccountAndCreatedAtBetween(Integer idAccount,Date start, Date end) {
+    public List<TransactionEntity> findByIdAccountAndCreatedAtBetween(Integer idAccount, Date start, Date end) {
         return this.transactionRepository.findByIdAccountAndCreatedAtBetween(idAccount, start, end);
     }
 
@@ -117,6 +114,13 @@ public class TransactionService {
     }
 
     public List<ReportDto> report(Integer idCustomer, Date start, Date end) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(end);
+        calendar.set(Calendar.HOUR, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 59);
+
         List<AccountEntity> accountEntities = this.accountService.findByIdCustomer(idCustomer);
         List<ReportDto> data = new ArrayList<>();
         ReportDto reportDto = new ReportDto();
@@ -132,18 +136,17 @@ public class TransactionService {
             }
 
             reportDto.setCustomerName(this.customerService.findCustomerNameById(accountEntity.getIdCustomer()));
-            transactionEntities = this.findByIdAccountAndCreatedAtBetween(accountEntity.getId(), start, end);
+            transactionEntities = this.findByIdAccountAndCreatedAtBetween(accountEntity.getId(), start, calendar.getTime());
 
-            if (transactionEntities.size() > 0) {
-                for (TransactionEntity transactionEntity : transactionEntities) {
+            for (TransactionEntity transactionEntity : transactionEntities) {
                     reportDto.setIdTransaction(transactionEntity.getId());
                     reportDto.setState(transactionEntity.getState());
                     reportDto.setInitialBalance(accountEntity.getInitialBalance());
                     reportDto.setCurrentBalance(transactionEntity.getCurrentBalance());
                     reportDto.setDate(transactionEntity.getCreatedAt());
-                    data.add(reportDto);
-                }
             }
+
+            data.add(reportDto);
             reportDto = new ReportDto();
         }
 

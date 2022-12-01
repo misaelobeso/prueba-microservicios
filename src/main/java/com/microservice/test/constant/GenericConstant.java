@@ -55,4 +55,6 @@ public final class GenericConstant {
     public static final String MESSAGE_ACCOUNTYPE_REQUIRED = "El tipo de cuenta es requerido.";
 
     public static final String MESSAGE_TRANSACTION_REQUIRED = "La transacción es requerida.";
+    public static final String MESSAGE_INVALID_DATE = "Formato de fecha incorrecto. El formato correcto es {value}.";
+    public static final String MESSAGE_REQUIRED_DATE = "La fecha es requerida.";
 }

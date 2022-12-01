@@ -2,23 +2,33 @@ package com.microservice.test.application;
 
 import com.microservice.test.constant.GenericConstant;
 import com.microservice.test.dto.MessageDto;
-import com.microservice.test.dto.ReportDto;
 import com.microservice.test.dto.ResponseDto;
 import com.microservice.test.dto.TransactionRequestDto;
 import com.microservice.test.entity.TransactionEntity;
 import com.microservice.test.service.TransactionService;
+import com.microservice.test.validator.IsDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping(value = "/transaction", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TransactionController {
@@ -76,14 +86,17 @@ public class TransactionController {
         return new ResponseEntity<>(responseDto, httpStatus);
     }
 
-    @GetMapping("/report/{id}")
-    public List<ReportDto> getReport(
-            @NotNull(message = GenericConstant.MESSAGE_TRANSACTION_REQUIRED)
-            @Min(message = GenericConstant.MESSAGE_TRANSACTION_MIN_VALUE, value = GenericConstant.DEFAULT_INTEGER)
+    @GetMapping("/report/{idCustomer}")
+    public ResponseEntity<ResponseDto> getReport(
+            @NotNull(message = GenericConstant.MESSAGE_CUSTOMER_REQUIRED)
+            @Min(message = GenericConstant.MESSAGE_CUSTOMER_MIN_VALUE, value = GenericConstant.DEFAULT_INTEGER)
             @PathVariable Integer idCustomer,
-            @RequestParam Date startDate,
-            @RequestParam Date endDate
+            @NotNull(message = GenericConstant.MESSAGE_REQUIRED_DATE)
+            @IsDate(value = "yyyy/MM/dd", message = GenericConstant.MESSAGE_INVALID_DATE)
+            @RequestParam String startDate,
+            @RequestParam String endDate
     ) {
-        return this.transactionService.report(idCustomer, startDate, endDate);
+        //return this.transactionService.report(idCustomer, startDate, endDate);
+        return new ResponseEntity<>(new ResponseDto(), HttpStatus.OK);
     }
 }

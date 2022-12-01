@@ -1,23 +1,22 @@
 package com.microservice.test.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.microservice.test.constant.GenericConstant;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
 import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
 import javax.persistence.GenerationType;
+import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Column;
+import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.Id;
 import java.util.Date;
 
 @Data

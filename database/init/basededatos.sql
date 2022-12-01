@@ -69,7 +69,7 @@ CREATE TABLE `transaction` (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
-    FOREIGN KEY (idTransactionType) REFERENCES `transaction`(id),
+    FOREIGN KEY (idTransactionType) REFERENCES transactionType(id),
     FOREIGN KEY (idAccount) REFERENCES account(id)
 ) ENGINE='InnoDB' DEFAULT CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_spanish_ci';
 
