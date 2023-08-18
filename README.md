@@ -1,2 +1,2 @@
-# neoris-prueba-microservicios
+# prueba-microservicios
 CRUD de prueba para desarrollo
